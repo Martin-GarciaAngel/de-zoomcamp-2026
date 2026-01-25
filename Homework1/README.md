@@ -13,16 +13,28 @@ This repository contains my homework submissions for the first module of the DE 
 2. Ingest data: `python ingest_data.py`
 3. Ingest data: `python ingest_zones.py`
 
-### Questions
+# Questions
 
-1. ``` docker run -it --rm python:3.13-slim pip --version```
-2. Answer is db:5432 because pgadmin would connect to the contatiner port since it is running inside the docker network.
-3.  ```SELECT 
+## Question 1
+```bash
+docker run -it --rm python:3.13-slim pip --version
+```
+
+## Question 2
+Answer is `db:5432` because pgadmin would connect to the container port since it is running inside the docker network.
+
+## Question 3
+```sql
+SELECT 
     SUM(CASE WHEN trip_distance <= 1 THEN 1 ELSE 0 END) AS "1 mile"
 FROM green_taxi_data
 WHERE lpep_pickup_datetime >= '2025-11-01' 
-  AND lpep_dropoff_datetime < '2025-12-01'```
-4. ```SELECT 
+  AND lpep_dropoff_datetime < '2025-12-01';
+```
+
+## Question 4
+```sql
+SELECT 
     lpep_pickup_datetime::date AS pickup_day,
     MAX(trip_distance) AS max_dist
 FROM 
@@ -33,8 +45,12 @@ GROUP BY
     1
 ORDER BY 
     max_dist DESC
-LIMIT 1```
-5. ```SELECT 
+LIMIT 1;
+```
+
+## Question 5
+```sql
+SELECT 
     z."Zone", 
     ROUND(SUM(t.total_amount)) AS total_sum
 FROM 
@@ -46,8 +62,12 @@ WHERE
 GROUP BY 
     z."Zone"
 ORDER BY 
-    total_sum DESC;```
-6.  ```SELECT
+    total_sum DESC;
+```
+
+## Question 6
+```sql
+SELECT
     zdrop."Zone" AS dropoff_zone,
     MAX(t.tip_amount) AS max_tip
 FROM
@@ -64,8 +84,10 @@ GROUP BY
     1
 ORDER BY
     max_tip DESC
-LIMIT 1;```
-7. 
-  * `terraform init`: does the initial set up for the backend
-  * `terraform apply -auto-approve`: tells terraform to go ahead and build and generates the propsed changes for the plan internally.
-  * `terraform destroy`: does all the cleanup.
+LIMIT 1;
+```
+
+## Question 7
+* `terraform init`: Does the initial setup for the backend
+* `terraform apply -auto-approve`: Tells terraform to go ahead and build and generates the proposed changes for the plan internally
+* `terraform destroy`: Does all the cleanup
